@@ -1,104 +1,104 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Category List</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif; /* Phông chữ cho toàn bộ trang */
-            margin: 20px; /* Khoảng cách cho toàn bộ trang */
-            background-color: #f4f4f4; /* Màu nền sáng hơn cho trang */
-        }
-        table {
-            width: 100%; /* Đặt chiều rộng của bảng bằng 100% để chiếm toàn bộ chiều rộng màn hình */
-            border-collapse: collapse; /* Gộp các đường viền của bảng */
-            margin-top: 20px; /* Khoảng cách giữa form tìm kiếm và bảng */
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Thêm hiệu ứng đổ bóng cho bảng */
-            background-color: white; /* Màu nền trắng cho bảng */
-        }
-        th, td {
-            border: 1px solid #ddd; /* Đường viền cho các ô */
-            padding: 10px; /* Khoảng cách bên trong các ô */
-            text-align: left; /* Căn trái cho nội dung */
-        }
-        th {
-            background-color: #f2f2f2; /* Màu nền cho tiêu đề bảng */
-        }
-        img {
-            max-width: 100px; /* Đặt chiều rộng tối đa cho hình ảnh */
-            height: auto; /* Đảm bảo chiều cao tự động để giữ tỷ lệ */
-        }
-        /* Điều chỉnh cho footer */
-        footer {
-            background-color: #333; /* Màu nền cho footer */
-            color: white; /* Màu chữ trắng */
-            text-align: center; /* Căn giữa nội dung */
-            padding: 10px 0; /* Khoảng cách bên trong footer */
-            position: relative; /* Đặt vị trí cho footer */
-            bottom: 0; /* Đảm bảo footer ở dưới cùng */
-            width: 100%; /* Đặt chiều rộng bằng 100% */
-            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.5); /* Đổ bóng cho footer */
-            margin-top: 20px; /* Khoảng cách trên footer */
-        }
-        /* Thêm các liên kết cho footer */
-        footer a {
-            color: white; /* Màu chữ cho liên kết trong footer */
-            text-decoration: underline; /* Gạch chân cho liên kết */
-        }
-    </style>
+<meta charset="UTF-8">
+<title>Category List</title>
+<style>
+body {
+	font-family: Arial, sans-serif; /* Phông chữ cho toàn bộ trang */
+	margin-top:170px;
+	
+	background-color: #f4f4f4; /* Màu nền sáng hơn cho trang */
+}
+table {
+	width: 100%;
+	/* Đặt chiều rộng của bảng bằng 100% để chiếm toàn bộ chiều rộng màn hình */
+	border-collapse: collapse; /* Gộp các đường viền của bảng */
+	margin-top: 20px; /* Khoảng cách giữa form tìm kiếm và bảng */
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	/* Thêm hiệu ứng đổ bóng cho bảng */
+	background-color: white; /* Màu nền trắng cho bảng */
+}
+
+th, td {
+	border: 1px solid #ddd; /* Đường viền cho các ô */
+	padding: 10px; /* Khoảng cách bên trong các ô */
+	text-align: left; /* Căn trái cho nội dung */
+}
+
+th {
+	background-color: #f2f2f2; /* Màu nền cho tiêu đề bảng */
+}
+
+img {
+	max-width: 100px; /* Đặt chiều rộng tối đa cho hình ảnh */
+	height: auto; /* Đảm bảo chiều cao tự động để giữ tỷ lệ */
+}
+
+</style>
 </head>
 <body>
-    <!-- Thêm header -->
-    <div th:replace="layout/header :: header"></div>
+	<!-- Thêm header -->
+	<header
+		style="position: fixed; top: 0; left: 0; width: 100%; background-color: #333; color: white; text-align: center; padding: 5px;">
+		<div th:replace="layout/header :: header"></div>
+	</header>
 
-    <div><br>
-        <!-- Form tìm kiếm -->
-        <form th:action="@{/categories}" method="get">
-            <input type="text" name="keyword" th:value="${keyword}" placeholder="Search by name">
-            <button type="submit">Search</button>
-        </form>
-        
-        <!-- Nút thêm danh mục -->
-        <a th:href="@{/admin/categories/add}">Add Category</a>
 
-        <!-- Bảng danh sách danh mục -->
-        <table>
-            <tr>
-                <th>STT</th>
-                <th>Images</th>
-                <th>Category Name</th>
-                <th>Status</th>
-                <th>Actions</th>
-            </tr>
-            
-            <!-- Lặp qua danh sách danh mục -->
-            <tr th:each="cate, stt : ${categories}">
-                <td th:text="${stt.index + 1}"></td>
-                <td>
-                    <!-- Hiển thị ảnh của danh mục nếu có -->
-                    <img th:src="@{/images/{img}(img=${cate.images})}" th:alt="${cate.name}"/>
-                </td>
-                <td th:text="${cate.name}"></td>
-                <td th:text="${cate.status}"></td>
-                <td>
-                    <!-- Nút chỉnh sửa và xóa danh mục -->
-                    <a th:href="@{/admin/categories/edit/{id}(id=${cate.categoryId})}">Edit</a>
-                    <a th:href="@{/admin/categories/delete/{id}(id=${cate.categoryId})}" onclick="return confirm('Are you sure?')">Delete</a>
-                </td>
-            </tr>
-        </table>
+	<div>
+		
+		<!-- Form tìm kiếm -->
+		<form th:action="@{/categories}" method="get">
+			<input type="text" name="keyword" th:value="${keyword}"
+				placeholder="Search by name">
+			<button type="submit">Search</button>
+		</form>
 
-        <!-- Điều hướng phân trang -->
-        <div>
-            <span th:text="${currentPage + 1}"></span> / <span th:text="${totalPages}"></span>
-            <a th:if="${currentPage > 0}" th:href="@{/categories(page=${currentPage - 1})}">Previous</a>
-            <a th:if="${currentPage < totalPages - 1}" th:href="@{/categories(page=${currentPage + 1})}">Next</a>
-        </div>
-    </div>
+		<!-- Nút thêm danh mục -->
+		<a th:href="@{/categories/add}">Add Category</a>
 
-    <!-- Thêm footer -->
-    <footer>
-        <div th:replace="layout/footer :: footer"></div>
-    </footer>
+		<!-- Bảng danh sách danh mục -->
+		<table>
+			<tr>
+				<th>STT</th>
+				<th>Images</th>
+				<th>Category Name</th>
+				<th>Status</th>
+				<th>Actions</th>
+			</tr>
+
+			<!-- Lặp qua danh sách danh mục -->
+			<tr th:each="cate, stt : ${categories}">
+				<td th:text="${stt.index + 1}"></td>
+				<td>
+					<!-- Hiển thị ảnh của danh mục nếu có --> <img
+					th:src="@{/images/{img}(img=${cate.images})}" th:alt="${cate.name}" />
+				</td>
+				<td th:text="${cate.name}"></td>
+				<td th:text="${cate.status}"></td>
+				<td>
+					<!-- Nút chỉnh sửa và xóa danh mục --> <a
+					th:href="@{/categories/edit/{id}(id=${cate.categoryId})}">Edit</a>
+					<a th:href="@{/categories/delete/{id}(id=${cate.categoryId})}"
+					onclick="return confirm('Are you sure?')">Delete</a>
+				</td>
+			</tr>
+		</table>
+
+		<!-- Điều hướng phân trang -->
+		<div>
+			<span th:text="${currentPage + 1}"></span> / <span
+				th:text="${totalPages}"></span> <a th:if="${currentPage > 0}"
+				th:href="@{/categories(page=${currentPage - 1})}">Previous</a> <a
+				th:if="${currentPage < totalPages - 1}"
+				th:href="@{/categories(page=${currentPage + 1})}">Next</a>
+		</div>
+	</div>
+
+	<!-- Thêm footer -->
+	<footer
+		style="position: fixed; bottom: 0; left: 0; width: 100%; background-color: #333; color: white; text-align: center; padding: 20px;">
+		<div th:replace="layout/footer :: footer"></div>
+	</footer>
 </body>
 </html>

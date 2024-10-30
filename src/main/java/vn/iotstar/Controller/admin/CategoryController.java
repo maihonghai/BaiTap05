@@ -32,17 +32,6 @@ import vn.iotstar.Service.CategoryService;
 public class CategoryController {
 	@Autowired
 	CategoryService categoryService;
-
-	/*
-	 * @RequestMapping("") public String all(ModelMap model) { List<CategoryEntity>
-	 * list = categoryService.findAll(); model.addAttribute("list", list);
-	 * 
-	 * return "admin/category/list"; }
-	 * 
-	 * @GetMapping("/add") public String add(ModelMap model) { // CategoryEntity
-	 * cateEntity = new CategoryEntity(); // cateEntity.setIsEdit(false); return
-	 * "admin/categories/addOrEdit"; }
-	 */
 	
 	@GetMapping
 	public String listCategories(Model model, 
@@ -55,32 +44,33 @@ public class CategoryController {
 	    model.addAttribute("keyword", keyword);
 	    return "category/list";
 	}
+	
+	 
 
-	    @GetMapping("/new")
-	    public String showCreateForm(Model model) {
-	        model.addAttribute("category", new CategoryEntity());
-	        return "category/form";
-	    }
+	@GetMapping("/add")
+	public String showCreateForm(Model model) {
+	    model.addAttribute("category", new CategoryEntity()); // Đổi tên thành "category"
+	    return "category/add"; // Đường dẫn tới add.html
+	}
 
-	    @PostMapping
-	    public String saveCategory(@ModelAttribute CategoryEntity category) {
-	        categoryService.save(category);
-	        return "redirect:/categories";
-	    }
+	@PostMapping
+	public String saveCategory(@ModelAttribute("category") CategoryEntity category) {
+	    categoryService.save(category);
+	    return "redirect:/categories";
+	}
 
-	    @GetMapping("/edit/{id}")
-	    public String showEditForm(@PathVariable Long id, Model model) {
-	        CategoryEntity category = categoryService.findById(id)
-	                                           .orElseThrow(() -> new IllegalArgumentException("Invalid Category ID:" + id));
-	        model.addAttribute("category", category);
-	        return "category/form";
-	    }
+	@GetMapping("/edit/{id}")
+	public String showEditForm(@PathVariable Long id, Model model) {
+	    CategoryEntity category = categoryService.findById(id)
+	                                       .orElseThrow(() -> new IllegalArgumentException("Invalid Category ID:" + id));
+	    model.addAttribute("category", category); // Đổi tên thành "category"
+	    return "category/edit"; // Đường dẫn tới edit.html
+	}
 
 	    @GetMapping("/delete/{id}")
 	    public String deleteCategory(@PathVariable Long id) {
 	        categoryService.deleteById(id);
 	        return "redirect:/categories";
 	    }
-	
 
 }

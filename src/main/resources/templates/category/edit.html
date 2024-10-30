@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Edit Category</title>
+</head>
+<body>
+    <header style="position: fixed; top: 0; left: 0; width: 100%; background-color: #333; color: white; text-align: center; padding: 5px;">
+		<div th:replace="layout/header :: header"></div>
+	</header>
+    <form style="margin-top: 170px;" action="#" th:action="@{/categories}" th:object="${category}" method="post" enctype="multipart/form-data">
+    <h2>Edit Category</h2>
+        <input type="hidden" th:field="*{categoryId}" /> <!-- Thay đổi id thành categoryId -->
+        
+        <label>Category Name:</label>
+        <input type="text" th:field="*{name}" required />
+        <br />
+        
+        <!-- <label>Images:</label>
+        <input type="file" th:field="*{images}" />
+        <br /> -->
+        
+        <label>Status:</label>
+        <select th:field="*{status}">
+            <option value="active" th:selected="${category.status == 'Active'}">Active</option>
+            <option value="inactive" th:selected="${category.status == 'Inactive'}">Inactive</option>
+        </select>
+        <br />
+        
+        <input type="submit" value="Save" />
+    </form>
+    
+    <a href="/categories">Back to List</a>
+     <footer style="position: fixed; bottom: 0; left: 0; width: 100%; background-color: #333; color: white; text-align: center; padding: 20px;">
+    <div th:replace="layout/footer :: footer"></div>
+</footer>
+</body>
+</html>

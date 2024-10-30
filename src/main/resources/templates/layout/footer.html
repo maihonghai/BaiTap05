@@ -1,11 +1,37 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <title>Trang web đẹp</title>
-   
+    <style>
+        html, body {
+            height: 100%; /* Chiều cao của body là 100% */
+            margin: 0; /* Xóa margin */
+        }
+        body {
+            display: flex; /* Sử dụng flexbox cho body */
+            flex-direction: column; /* Sắp xếp theo chiều dọc */
+            background-color: Black; /* Màu nền */
+        }
+        .content {
+            flex: 1; /* Phần nội dung chiếm toàn bộ không gian còn lại */
+            padding: 20px; /* Thêm khoảng cách cho nội dung */
+            color: white; /* Màu chữ */
+        }
+        footer {
+            background-color: #333; /* Màu nền của footer */
+            color: white; /* Màu chữ trong footer */
+            text-align: center; /* Căn giữa nội dung trong footer */
+            padding: 10px; /* Khoảng cách trong footer */
+        }
+    </style>
 </head>
-<body style="font-family: Arial, sans-serif; margin: 0; background-color: Black;">
+<body style="font-family: Arial, sans-serif;">
+    <div class="content">
+        <!-- Nội dung của bạn ở đây -->
+        <h1>Chào mừng đến với trang web của tôi!</h1>
+        <p>Đây là một ví dụ về cách giữ footer ở cuối trang.</p>
+    </div>
     <footer>
         <div class="footer-container">
             <p>Thực hiện bởi: Mai Hồng Hải - Mã sinh viên: 22133014</p>
